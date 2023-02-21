@@ -24,9 +24,6 @@ export class PullZoneListComponent implements OnInit, OnDestroy {
 
   constructor(private routerService: RouterService, private route: ActivatedRoute) {
     let data = this.route.snapshot.data;
-    if (!data) {
-      // TODO: route to error page
-    }
     this.pullZones = data['pullZones'];
   }
 

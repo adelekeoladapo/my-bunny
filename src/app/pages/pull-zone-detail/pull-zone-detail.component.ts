@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {PullZone} from "../../models/pull-zone.model";
 import {TierType} from "../../models/tier-type.enum";
-import {PullZoneService} from "../../service/pull-zone/pull-zone.service";
 import {Option} from "../../shared/form-select/Option";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-pull-zone-detail',
@@ -11,30 +11,26 @@ import {Option} from "../../shared/form-select/Option";
 })
 export class PullZoneDetailComponent implements OnInit {
 
-  pullZone: PullZone;
+  pullZone: PullZone = {} as PullZone;
   tierType = TierType;
 
   pullZones: PullZone[] = [];
+  pullZoneOptions: Option[] = [];
 
-  constructor(private route: ActivatedRoute, private pullZoneService: PullZoneService) {
-    let data = this.route.snapshot.data;
-    if (!data) {
-      // TODO: route to error page
-    }
-    this.pullZone = data['pullZone'];
-  }
+  control: FormControl = new FormControl();
+
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.setPullZones();
+    this.pullZones = this.route.snapshot.data['pullZones'];
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.initPullZoneOptions();
+    this.control.valueChanges.subscribe(data => this.onPullZoneChange(data));
+    this.control.setValue(id);
   }
 
-  private setPullZones(): void {
-    this.pullZoneService.getPullZones().subscribe(data => this.pullZones = data);
-  }
-
-  get pullZoneOptions(): Option[] {
-    // TODO: Fix the bug here
-    return this.pullZones.map(p => ({name: p.Name, value: p.Id, selected: p.Id === this.pullZone.Id}));
+  private initPullZoneOptions(): void {
+    this.pullZoneOptions = this.pullZones.map(p => ({name: p.Name, value: p.Id, selected: p.Id === this.pullZone.Id}));
   }
 
   onPullZoneChange(id: number): void {

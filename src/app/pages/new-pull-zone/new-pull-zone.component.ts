@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Option} from "../../shared/form-select/Option";
 import {PullZoneForm} from "./pull-zone.form";
 import {PullZoneService} from "../../service/pull-zone/pull-zone.service";
@@ -9,12 +9,19 @@ import {NotificationService} from "../../service/notification/notification.servi
   selector: 'app-new-pull-zone',
   templateUrl: './new-pull-zone.component.html'
 })
-export class NewPullZoneComponent {
+export class NewPullZoneComponent implements OnInit {
 
   pullZoneForm: PullZoneForm = new PullZoneForm();
   submitButtonLoading: boolean = false;
 
+  pullZoneTypeOptions: Option[] = [];
+
   constructor(private service: PullZoneService, private notificationService: NotificationService) {}
+
+  ngOnInit() {
+    this.initPullZoneTypeOptions();
+  }
+
 
   submit(): void {
     if (!this.pullZoneForm.valid) {
@@ -35,14 +42,14 @@ export class NewPullZoneComponent {
     );
   }
 
-  get pullZoneTypeOptions(): Option[] {
+   private initPullZoneTypeOptions(): void {
     let options: Option[] = [];
     const keys = Object.keys(TierType).filter(key => isNaN(Number(key)));
     const values = Object.values(TierType).filter(value => !isNaN(Number(value)));
     for (let i = 0; i < keys.length; i++) {
       options.push({name: keys[i], value: values[i]} as Option)
     }
-    return options;
+    this.pullZoneTypeOptions = options;
   }
 
 

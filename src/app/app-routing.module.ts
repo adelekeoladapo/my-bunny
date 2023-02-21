@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'pull-zones/:id',
     loadChildren: () => import('./pages/pull-zone-detail/pull-zone-detail.module').then(m => m.PullZoneDetailModule),
-    resolve: {pullZone: PullZoneResolver}
+    resolve: {pullZones: PullZoneListResolver}
   }
 ];
 

@@ -11,7 +11,11 @@
 <div class="container">
   <div class="row justify-content-between">
     <div class="col-4">
-      <app-form-select [id]="'pull-zone-select'" [options]="pullZoneOptions" (changeEvent)="onPullZoneChange($event)"></app-form-select>
+      <app-form-select
+        [id]="'pull-zone-select'"
+        [options]="pullZoneOptions"
+        [addEmptyOption]="false"
+        [control]="control"></app-form-select>
     </div>
   </div>
   <table id="pull-zone-details" class="table table-striped" *ngIf="pullZone">

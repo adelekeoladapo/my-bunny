@@ -2,31 +2,29 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { PullZoneDetailComponent } from './pull-zone-detail.component';
 import {ActivatedRoute} from "@angular/router";
-import {PullZoneService} from "../../service/pull-zone/pull-zone.service";
 import {PullZone} from "../../models/pull-zone.model";
 import {SharedModule} from "../../shared/shared.module";
-import {of} from "rxjs";
 import {BytesPipe} from "./pipe/bytes.pipe";
 
 describe('PullZoneDetailComponent', () => {
   let component: PullZoneDetailComponent;
   let fixture: ComponentFixture<PullZoneDetailComponent>;
-  let pullZoneServiceSpyObj: jasmine.SpyObj<PullZoneService>;
 
   beforeEach(async () => {
-
-    pullZoneServiceSpyObj = jasmine.createSpyObj(PullZoneService, ['getPullZones']);
-    pullZoneServiceSpyObj.getPullZones.and.returnValue(of(aPullZoneListMockResource()));
 
     await TestBed.configureTestingModule({
       imports: [SharedModule],
       declarations: [ PullZoneDetailComponent, BytesPipe],
       providers: [
         {provide: ActivatedRoute, useValue: {
-            snapshot: {data: {pullZone: aPullZoneMockResource()}}
+            snapshot: {
+              data: {pullZones: aPullZoneListMockResource()},
+              paramMap: {
+                get: () => '100'
+              }
+            }
           }
         },
-        {provide: PullZoneService, useValue: pullZoneServiceSpyObj}
       ]
     })
     .compileComponents();
@@ -59,7 +57,7 @@ describe('PullZoneDetailComponent', () => {
     component.ngOnInit();
 
     // then
-    expect(pullZoneServiceSpyObj.getPullZones).toHaveBeenCalled();
+    expect(component.pullZones).toEqual(aPullZoneListMockResource());
   });
 
   it('should have a combo box containing names of pull zones as options', () => {
