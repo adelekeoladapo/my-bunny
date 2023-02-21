@@ -1,0 +1,54 @@
+<app-breadcrumb [pages]="['Pull zone details']"></app-breadcrumb>
+<div class="page-title-container">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3 class="page-title">Pull Zone Details: {{pullZone?.Name}}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-between">
+    <div class="col-4">
+      <app-form-select [id]="'pull-zone-select'" [options]="pullZoneOptions" (changeEvent)="onPullZoneChange($event)"></app-form-select>
+    </div>
+  </div>
+  <table id="pull-zone-details" class="table table-striped" *ngIf="pullZone">
+    <tbody>
+    <tr>
+      <td>Name</td>
+      <td>{{pullZone.Name}}</td>
+    </tr>
+    <tr>
+      <td>Origin</td>
+      <td>{{pullZone.OriginUrl}}</td>
+    </tr>
+    <tr>
+      <td>Tier</td>
+      <td>{{tierType[pullZone.Type]}}</td>
+    </tr>
+    <tr>
+      <td>Monthly Traffic</td>
+      <td>{{pullZone.MonthlyBandwidthUsed | bytes }}</td>
+    </tr>
+    <tr>
+      <td>Monthly Cost</td>
+      <td id="monthly-traffic">{{pullZone.MonthlyCharges | currency:'USD'}}</td>
+    </tr>
+    <tr>
+      <td>Enable Regions</td>
+      <td>
+        <ul>
+          <li *ngIf="pullZone.EnableGeoZoneUS">US</li>
+          <li *ngIf="pullZone.EnableGeoZoneEU">EU</li>
+          <li *ngIf="pullZone.EnableGeoZoneASIA">Asia</li>
+          <li *ngIf="pullZone.EnableGeoZoneSA">South America</li>
+          <li *ngIf="pullZone.EnableGeoZoneAF">Africa</li>
+        </ul>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

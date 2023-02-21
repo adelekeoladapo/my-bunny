@@ -1,0 +1,68 @@
+<app-breadcrumb [pages]="['New pull zone']"></app-breadcrumb>
+<div class="page-title-container">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3 class="page-title">New Pull Zone</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <form id="new-pull-zone-form" [formGroup]="pullZoneForm">
+    <div class="row">
+      <div class="col-md-6">
+        <app-form-input
+          [title]="'Name'"
+          [type]="'text'"
+          [id]="'name'"
+          [floatingInput]="true"
+          [control]="pullZoneForm.name"></app-form-input>
+      </div>
+      <div class="col-md-6">
+        <app-form-input
+          [title]="'Origin url'"
+          [type]="'text'"
+          [id]="'origin-url'"
+          [floatingInput]="true"
+        [control]="pullZoneForm.originUrl"></app-form-input>
+      </div>
+      <div class="col-md-6">
+        <app-form-select
+          [title]="'Type'"
+          [id]="'type'"
+          [options]="pullZoneTypeOptions"
+          [floatingInput]="true"
+          [addEmptyOption]="true"
+          [control]="pullZoneForm.type"></app-form-select>
+      </div>
+      <div class="col-md-6">
+        <app-form-checkbox
+          [id]="'enable-geo-zone-us'"
+          [title]="'EnableGeoZoneUS'"
+          [control]="pullZoneForm.enableGeoZoneUS"></app-form-checkbox>
+        <app-form-checkbox
+          [id]="'enable-geo-zone-eu'"
+          [title]="'EnableGeoZoneEU'"
+          [control]="pullZoneForm.enableGeoZoneEU"></app-form-checkbox>
+        <app-form-checkbox
+          [id]="'enable-geo-zone-sa'"
+          [title]="'EnableGeoZoneSA'"
+          [control]="pullZoneForm.enableGeoZoneSA"></app-form-checkbox>
+        <app-form-checkbox
+          [id]="'enable-geo-zone-af'"
+          [title]="'EnableGeoZoneAF'"
+          [control]="pullZoneForm.enableGeoZoneAF"></app-form-checkbox>
+      </div>
+      <div class="col-12">
+        <app-button
+          [title]="' Save Pull Zone'"
+          [id]="'button-save-pull-zone'"
+          [icon]="'save'"
+          [disabled]="pullZoneForm.invalid"
+          [loading]="submitButtonLoading"
+          (buttonClick)="submit()"></app-button>
+      </div>
+    </div>
+  </form>
+</div>

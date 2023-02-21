@@ -1,0 +1,7 @@
+<div id="{{'input-'+id}}" [ngClass]="{'form-floating': floatingInput}" class="form-floating mb-3">
+  <label *ngIf="!floatingInput" for="{{id}}" class="form-label">{{title}}</label>
+  <input type="{{type}}" [ngClass]="{'is-invalid': control.touched && control.invalid}" class="form-control" id="{{id}}" placeholder="{{placeholder}}" [formControl]="control">
+  <label *ngIf="floatingInput" for="{{id}}" class="form-label">{{title}}</label>
+  <div *ngIf="control.touched && control.hasError('required')" class="invalid-feedback">Please provide {{title.toLowerCase()}}.</div>
+  <div *ngIf="control.touched && control.hasError('pattern')" class="invalid-feedback">Please provide valid url.</div>
+</div>

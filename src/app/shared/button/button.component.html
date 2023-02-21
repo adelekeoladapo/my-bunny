@@ -1,0 +1,7 @@
+<button
+  class="btn btn-primary"
+  type="button"
+  [id]="id"
+  [disabled]="disabled || loading"
+  (click)="onClick()">
+  <i *ngIf="icon && !loading" id="button-icon" class="fa fa-{{icon}}"></i> {{ loading ? 'Loading...' : title }}</button>

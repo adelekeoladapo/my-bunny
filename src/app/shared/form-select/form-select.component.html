@@ -1,0 +1,9 @@
+<div [ngClass]="{'form-floating': floatingInput}" class="mb-3">
+  <label *ngIf="!floatingInput" for="{{id}}" class="form-label">{{title}}</label>
+  <select [ngClass]="{'is-invalid': control.touched && control.invalid}" class="form-select" id="{{id}}" [formControl]="control" (change)="onChange(control.value)">
+    <option *ngIf="addEmptyOption"></option>
+    <option *ngFor="let option of options" [ngValue]="option.value" [selected]="option.selected">{{option.name}}</option>
+  </select>
+  <label *ngIf="floatingInput" for="{{id}}" class="form-label">{{title}}</label>
+  <div *ngIf="control.touched && control.hasError('required')" class="invalid-feedback">Please select a {{title.toLowerCase()}}.</div>
+</div>

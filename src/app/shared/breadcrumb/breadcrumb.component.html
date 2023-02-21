@@ -1,0 +1,6 @@
+<nav class="container-fluid breadcrumb-container" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="">Home</a></li>
+    <li *ngFor="let page of pages; let i = index" [ngClass]="{'active': i === pages.length - 1}" class="breadcrumb-item" aria-current="page">{{page}}</li>
+  </ol>
+</nav>
